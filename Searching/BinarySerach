@@ -1,0 +1,26 @@
+package Sorting;
+public class BinarySerach {
+public static void main(String[] args) {
+	int[] a= {1,2,3,4,5,6,7};
+	int target=6;
+	System.out.println(find(a,target));
+}
+public static int find(int[] a,int target) {
+	int start=0;
+	int end=a.length-1;
+	while(start<=end) {
+		int mid=start+(end-start)/2;
+		if(a[mid]==target) {
+			return mid;
+		}
+		else if(a[mid] >target) {
+			end=mid-1;
+		}
+		else {
+			start=mid+1;
+		}
+	//mid=s+(e-s)/2;
+	}
+	return start;
+}
+}
