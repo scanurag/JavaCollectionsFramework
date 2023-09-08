@@ -1,0 +1,105 @@
+// Remove Duplicates from Sorted List
+package LinkedList;
+class Node1{
+	Object data;
+	Node1 next;
+  Node1(Object data,Node1 next) {
+		this.data=data;
+		this.next=next;
+	}
+}
+***************************************************************************
+class LinkdIn{
+		private Node1 first=null;
+		private int count=0;
+		public void add(Object e) {
+			if(first==null) {
+				first=new Node1(e,null);
+				count++;
+				return;
+			}
+			Node1 curr=first;
+			while(curr.next!=null) {
+				curr=curr.next;
+			}
+			curr.next=new Node1(e,null);
+			count++;
+		}
+		public int size() {
+			return count;
+		}
+		public Object get(int index) {
+			if(index<=-1||index>=size()) {
+				throw new IndexOutOfBoundsException();
+			}
+			Node1 curr=first;
+			for(int i=1;i<=index;i++) {
+				curr=curr.next;
+			}
+			return curr.data;
+		}
+		public void addAll(Object e,int index) {
+			if(index <=-1||index>=size()) {
+				throw new IndexOutOfBoundsException();
+				}
+			if(index==0) {
+				first=new Node1(e,first);
+				count++;
+				return;
+			}
+			Node1 curr=first;
+			for(int i=1;i<index;i++) {
+				curr=curr.next;
+			}
+			curr.next=new Node1(e,curr.next);
+			count++;
+		}
+		public void remove(int index) {
+			if(index<=-1||index>=size()) {
+				throw new IndexOutOfBoundsException(); 
+			}
+			if(index==0) {
+				first=first.next;
+				count--;
+				return;
+			}
+			Node1 curr=first;
+			for(int i=1; i<index;i++) {
+				curr=curr.next;
+			}
+			curr.next=curr.next.next;
+			count--;
+		}
+		public void deleteDuplicates() {
+			Node1 curr=first;
+			while(curr!=null&&curr.next!=null) {
+				if(curr.next.data==curr.data) {
+					curr.next=curr.next.next;
+					count--;
+					continue;
+				}
+				curr=curr.next;
+			}
+			
+		}
+	
+}
+***************************************************************************
+public class Show {
+public static void main(String[] args) {
+	LinkdIn dk=new LinkdIn();
+	dk.add(1);
+	dk.add(1);
+	dk.add(2);
+	/*for(int i=0;i<dk.size();i++) {
+		System.out.println(dk.get(i));
+	}*/
+    dk.deleteDuplicates();
+
+    //System.out.println("List after deleting duplicates:");
+    for (int i = 0; i < dk.size(); i++) {
+        System.out.println(dk.get(i));
+    }
+}
+}
+
