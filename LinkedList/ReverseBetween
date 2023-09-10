@@ -1,1 +1,148 @@
+package LinkedList;
+class Node0{
+ Object data;
+ Node0 next;
+ public Node0(Object data,Node0 next) {
+	 this.data=data;
+	 this.next=next;
+ }
+}
+class LinkList{
+	Node0 first=null;
+	private int count=0;
+	public void add(Object e) {
+		if(first==null) {
+			first=new Node0(e,null);
+			count++;
+			return;
+		}
+		Node0 curr=first;
+		while(curr.next!=null) {
+			curr=curr.next;
+		}
+		curr.next=new Node0(e,null);
+		count++;
+	}
+	public int size() {
+		return count;
+	}
+	public void addAll(Object e,int index) {
+		if(index<=-1||index >=size()) {
+		throw new IndexOutOfBoundsException();
+		}
+			if(index==0) {
+				first=new Node0(e,first);
+				count++;
+				return;
+			}
+			Node0 curr=first;
+			for(int i=1;i<index;i++) {
+				curr=curr.next;
+			}
+			curr.next=new Node0(e,curr.next);
+			count++;
+			}
+	public Object get(int index) {
+		if(index<=-1||index >=size()) {
+			throw new IndexOutOfBoundsException();
+			}
+		Node0 curr=first;
+		for(int i=1;i<=index;i++) {
+			curr=curr.next;
+		}
+		return curr.data;
+	}
+	public void remove(int index) {
+		if(index<=-1||index >=size()) {
+			throw new IndexOutOfBoundsException();
+			}
+		if(index==0) {
+			first=first.next;
+			count--;
+			return;
+		}
+		Node0 curr=first;
+		for(int i=1;i<index;i++) {
+			curr=curr.next;
+		}
+		curr.next=curr.next.next;
+		count--;
+	}
+	public void reverse() {
+		Node0 priv=null;
+		Node0 curr=first;
+		Node0 next=null;
+		while(curr!=null) {
+			next=curr.next;
+			curr.next=priv;
+			priv=curr;
+			curr=next;
+		}
+		first=priv;
+	}
+	public void removeDuplicates() {
+		Node0 curr=first;
+		while(curr!=null&&curr.next!=null) {
+			if(curr.next.data==curr.data) {
+				curr.next=curr.next.next;
+				count--;
+				continue;
+			}
+			curr=curr.next;
+		}
+	}
+	public Node0 reverseBetween(Node0 first,
+	int left,int right) {
+		Node0 left1=first,left2=first,right1=first,right2=first;
+		int l=left;
+		if(first==null) return null;
+		if(first.next==null) return first;
+		while(left-->1) {
+			left1=left2;
+			left2=left2.next;
+		}
+		while(right-->=1) {
+			right2=right1;
+			right1=right1.next;
+		}
+		if(l!=1) left1.next=null;
+		right2.next=null;
+		Node0 prev=null,next=null,curr=left2;
+		while(curr!=null) {
+			next=curr.next;
+			curr.next=prev;
+			prev=curr;
+			curr=next;
+		}
+		if(l==1) {
+			first.next=right1;
+			return prev;
+		}
+		left1.next=prev;
+		left2.next=right1;
+		return first;
+	}
+	
+	
+}
+public class ReverseLinkedListII {
+	public static void main(String[] args) {
+		LinkList l=new LinkList();
+		l.add(1);
+		l.add(2);
+		l.add(3);
+		l.add(4);
+		l.add(5);
+		l.reverseBetween(l.first,2,4);
+		//l.addAll(8,2);
+		//l.remove(2);
+		//l.removeDuplicates();
+		//l.reverse() ;
+		for(int i=0;i<l.size();i++) {
+			System.out.println(l.get(i));
+		}
+		
+	}
+	
 
+}
