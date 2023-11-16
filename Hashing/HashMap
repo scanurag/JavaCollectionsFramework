@@ -1,0 +1,106 @@
+package Hashing;
+class NodeT {
+    Object key;
+    Object value;
+    NodeT next;
+
+    public NodeT(Object key, Object value, NodeT next) {
+        this.key = key;
+        this.value = value;
+        this.next = next;
+    }
+}
+
+class Map {
+    private NodeT[] a = new NodeT[10];
+    private int count = 0;
+
+    public boolean put(Object key, Object value) {
+        int index = Math.abs(key.hashCode()) % a.length;
+        NodeT curr = a[index];
+        while (curr != null) {
+            if (key.equals(curr.key)) {
+                curr.value = value;
+                return false;
+            }
+            curr = curr.next;
+        }
+        a[index] = new NodeT(key, value, a[index]);
+        count++;
+        return true;
+    }
+
+    public Object get(Object key) {
+        int index = Math.abs(key.hashCode()) % a.length;
+        NodeT curr = a[index];
+        while (curr != null) {
+            if (key.equals(curr.key)) {
+                return curr.value;
+            }
+            curr = curr.next;
+        }
+        return null;
+    }
+
+    public boolean containsKey(Object key) {
+        int index = Math.abs(key.hashCode()) % a.length;
+        NodeT curr = a[index];
+        while (curr != null) {
+            if (key.equals(curr.key)) {
+                return true;
+            }
+            curr = curr.next;
+        }
+        return false;
+    }
+
+    public boolean remove(Object key) {
+        int index = Math.abs(key.hashCode()) % a.length;
+        NodeT curr = a[index];
+        NodeT prev = null;
+        while (curr != null) {
+            if (key.equals(curr.key)) {
+                if (prev == null) {
+                    a[index] = curr.next;
+                } else {
+                    prev.next = curr.next;
+                }
+                count--;
+                return true;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        return false;
+    }
+
+    public int size() {
+        return count;
+    }
+
+    public void Show() {
+        for (int i = 0; i < a.length; i++) {
+            NodeT curr = a[i];
+            while (curr != null) {
+                System.out.println(curr.key + "," + curr.value);
+                curr = curr.next;
+            }
+        }
+    }
+}
+
+public class HashMap {
+    public static void main(String[] args) {
+        Map h = new Map();
+        h.put(97, 'a');
+        h.put(98, 'b');
+        h.put(99, 'c');
+        h.put(100, 'd');
+        System.out.println(h.get(97));
+        h.remove(100);
+        h.Show();
+        System.out.println( h.containsKey(97));
+        
+    
+    }
+}
