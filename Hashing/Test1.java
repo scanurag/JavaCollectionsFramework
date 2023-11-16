@@ -18,13 +18,12 @@ class Set{
 			return true;
 		}
 		Node curr=a[index];
-		Node prev=null;
 		while(curr!=null) {
-			if(key==curr.key) return false;
-			prev=curr;
+			if(curr.key.equles(key))return false;
+			if(curr==curr.next) break;
 			curr=curr.next;
  		}
-		prev.next=new Node(key,null);
+		curr.next=new Node(key,null);
 		count++;
 		return true;
 	}
@@ -47,7 +46,7 @@ public static void main(String[] args) {
 	Set s=new Set();
 	System.out.println(s.add(46));
 	System.out.println(s.add(52));
-	System.out.println(s.add(46));
+	System.out.println(s.add("Kajol"));
 	System.out.println(s.add(22));
 	System.out.println("Size"+s.Size());
 	s.Display();
