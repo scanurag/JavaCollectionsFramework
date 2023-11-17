@@ -1,0 +1,66 @@
+package Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{name='" + name + "', age=" + age + "}";
+    }
+}
+class AgeComparator implements Comparator<Person> {
+     @Override
+       public int compare(Person person1, Person person2) {
+       return Integer.compare(person1.getAge(), person2.getAge()); 
+}  
+}
+//class NameComparator implements Comparator<Person>{
+//
+//	@Override
+//	public int compare(Person o1, Person o2) {
+//		
+//	    return o1.getName().compareTo(o2.getName());
+//	}
+//	
+//}
+public class Comparator {
+    public static void main(String[] args) {
+        List<Person> people = new ArrayList<>();
+        people.add(new Person("Alice", 25));
+        people.add(new Person("Bob", 30));
+        people.add(new Person("Charlie", 20));
+        people.add(new Person("David", 35));
+
+        //Collections.sort(people, (person1, person2) -> Integer.compare(person1.getAge(), person2.getAge()));
+        Collections.sort(people, new AgeComparator());
+
+
+        System.out.println("\nAfter sorting by age:");
+        for (Person person : people) {
+            System.out.println(person);      
+        }
+        System.out.println("*****************************");
+        Collections.sort(people, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+        for (Person person : people) {
+            System.out.println(person);      
+        }
+    }
+}
