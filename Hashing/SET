@@ -1,0 +1,57 @@
+class Node<T> {
+    T key;
+    Node<T> next;
+
+    public Node(T key, Node<T> next) {
+        this.key = key;
+        this.next = next;
+    }
+}
+
+class Set<T> {
+    private Node<T>[] a = new Node[10];
+    private int count = 0;
+
+    public boolean add(T key) {
+        int index = (key.hashCode()) % a.length;
+        if (a[index] == null) {
+            a[index] = new Node<>(key, null);
+            count++;
+            return true;
+        }
+        Node<T> curr = a[index];
+        while (curr != null) {
+            if (curr.key.equals(key)) return false;
+            if (curr.next == null) break;
+            curr = curr.next;
+        }
+        curr.next = new Node<>(key, null);
+        count++;
+        return true;
+    }
+
+    public int size() {
+        return count;
+    }
+
+    public void show() {
+        for (int i = 0; i < a.length; i++) {
+            Node<T> curr = a[i];
+            while (curr != null) {
+                System.out.println(curr.key);
+                curr = curr.next;
+            }
+        }
+    }
+}
+
+class Ruf {
+    public static void main(String[] arg) {
+        Set<Integer> s = new Set<>();
+        s.add(1);
+        s.add(2);
+        s.add(3);
+        s.add(4);
+        s.show();
+    }
+}
